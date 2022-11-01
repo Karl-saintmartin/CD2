@@ -9,9 +9,10 @@
 
 
 
-
 </body>
 <script type="text/javascript">
+
+
 	function geoFindMe() {
 
   const status = document.querySelector('#status');
@@ -20,13 +21,17 @@
   mapLink.href = '';
   mapLink.textContent = '';
 
-  function success(position) {
-    const latitude  = position.coords.latitude;
-    const longitude = position.coords.longitude;
 
+
+  function success(position) {
+    const latitude1  = position.coords.latitude;
+    const longitude1 = position.coords.longitude;
+    const latitude2 = 36.14772;
+    const longitude2 = 128.39000;
+    const d = Distance(latitude1,longitude1, latitude2, longitude2);
     status.textContent = '';
-    mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-    mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+    mapLink.href = `https://www.google.com/maps/search/?api=1&query=${latitude2}%2C${longitude2}`;
+    mapLink.textContent = `Latitude: ${latitude1} °, Longitude: ${longitude1} °, you are at : ${d} m`;
   }
 
   function error() {
@@ -39,6 +44,22 @@
     status.textContent = 'Locating…';
     navigator.geolocation.getCurrentPosition(success, error);
   }
+function convertRad(input){
+        return (Math.PI * input)/180;
+}
+ 
+function Distance(lat_a_degre, lon_a_degre, lat_b_degre, lon_b_degre){
+     
+        R = 6378000 //Rayon de la terre en mètre
+ 
+    lat_a = convertRad(lat_a_degre);
+    lon_a = convertRad(lon_a_degre);
+    lat_b = convertRad(lat_b_degre);
+    lon_b = convertRad(lon_b_degre);
+     
+    d = R * (Math.PI/2 - Math.asin( Math.sin(lat_b) * Math.sin(lat_a) + Math.cos(lon_b - lon_a) * Math.cos(lat_b) * Math.cos(lat_a)))
+    return d;
+}
 
 }
 
