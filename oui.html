@@ -30,7 +30,7 @@
     const longitude2 = 128.39000;
     const d = Distance(latitude1,longitude1, latitude2, longitude2);
     status.textContent = '';
-    mapLink.href = `https://www.google.com/maps/search/?api=1&query=${latitude2}%2C${longitude2}`;
+    mapLink.href = `https://www.google.com/maps/dir/${latitude1},${longitude1}/${latitude2},${longitude2}`;
     mapLink.textContent = `Latitude: ${latitude1} °, Longitude: ${longitude1} °, you are at : ${d} m`;
   }
 
